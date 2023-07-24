@@ -1,0 +1,34 @@
+5
+*
+^What did you eat for breakfast this morning?
+4
+Toast
+Cereal
+Yogurt
+Eggs
+*
+^In what borough do you live?
+5
+Manhattan
+Brooklyn
+The Bronx
+Queens
+Staten Island
+*
+^Among the following candidates, which have you heard of?
+4
+Jack Johnson
+John Jackson
+Anders Johnson
+John Anderson
+*
+^What is your social security number?
+3
+Go away
+123-45-6789
+000-00-0000
+*
+^Will this question work?
+2
+Yes
+No

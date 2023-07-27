@@ -1,0 +1,73 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
+
+/**
+ *
+ * @author Sean Ogle
+ */
+
+import java.io.*;
+import java.net.*;
+import java.util.Scanner;
+public class Survey_client {
+    
+    Socket socket = null;
+    DataInputStream input = null;
+    DataOutputStream out = null;
+    
+    Survey_client(String address, int port) throws Exception{
+        try{
+            socket = new Socket(address,port);
+            System.out.println("Connection Successful");            
+            
+            	
+            input = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            //System.out.println(input.readUTF());
+            out = new DataOutputStream(socket.getOutputStream());
+            
+            int questions = Integer.parseInt(input.readUTF());
+            System.out.println("Number of questions: " + questions);
+            int q = 0;
+                while (q < questions){
+                    Scanner sc= new Scanner(System.in);
+                    String line = "";
+                    boolean done = false;
+                    while (!line.equals("escape")||(done)){
+                        System.out.println("Question: "+input.readUTF());
+                        boolean ready = true;
+                        int c = 0;
+                        while (c < 5){
+                            System.out.println("#" + c + " "+ input.readUTF());
+                            c++;
+                        }
+                        System.out.println("Type in your answer. Type 'escape' to exit the survey");
+                        line = sc.nextLine();
+                        System.out.println("Sending to server " + "'"+line+"'");  
+                        out.writeUTF(line);
+                        done = true;
+                    }
+                q++;
+            }
+        }
+        catch (UnknownHostException u){
+            System.out.println(u);
+            return;
+        }
+        catch (IOException i){
+            System.out.println(i);
+            return;
+        }
+        
+
+        //while(true);
+        
+        socket.close();
+        
+    }
+    
+    
+    public static void main(String[] args) throws Exception{
+        Survey_client client = new Survey_client("127.0.0.1",1234);
+    }
+}
